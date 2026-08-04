@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório de Engajamento — Tráfego Pago</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ===== MEDISCAN AI DESIGN SYSTEM aplicado ao relatório ===== */
+:root{
+  --blue:#0047FF; --blue-600:#0039CC; --blue-400:#3D74FF;
+  --blue-tint:#EAF0FF; --blue-tint-2:#F4F7FF;
+  --ink:#0C0E14; --ink-2:#464C59; --muted:#8A92A3;
+  --line:#ECEEF3; --line-2:#E3E7EE; --page:#F4F6FA; --surface:#FFFFFF; --surface-2:#F7F9FC;
+  --coral:#FC4A3C; --coral-tint:#FFEDEB; --green:#12B76A; --green-tint:#E7F8F0;
+  --amber:#F5A623; --amber-tint:#FEF4E2; --violet:#7A5AF8; --violet-tint:#F0ECFE;
+  --r-sm:12px; --r-md:16px; --r-lg:22px; --r-pill:999px;
+  --sh-sm:0 1px 2px rgba(16,24,40,.05);
+  --sh-md:0 4px 16px -6px rgba(16,24,40,.10),0 1px 3px rgba(16,24,40,.04);
+  --sh-blue:0 12px 28px -10px rgba(0,71,255,.45);
+  --font:'Urbanist',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);background:var(--page);color:var(--ink);
+  -webkit-font-smoothing:antialiased;line-height:1.5;font-weight:500;padding-bottom:60px}
+.tnum{font-variant-numeric:tabular-nums}
+svg{display:block}
+::selection{background:var(--blue);color:#fff}
+.wrap{max-width:1200px;margin:0 auto;padding:0 26px}
+
+/* ---- Header ---- */
+header{padding:34px 0 6px}
+.top{display:flex;align-items:center;gap:16px;margin-bottom:30px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand .logo{width:44px;height:44px;border-radius:13px;background:var(--blue);display:grid;
+  place-items:center;box-shadow:var(--sh-blue)}
+.brand .logo svg{width:23px;height:23px}
+.brand .bn{font-weight:800;font-size:19px;letter-spacing:-.02em}
+.brand .bn b{color:var(--blue)}
+.brand .bn small{display:block;font-size:11.5px;font-weight:700;color:var(--muted);letter-spacing:.04em;margin-top:-2px}
+.top .period{margin-left:auto;display:inline-flex;align-items:center;gap:9px;background:var(--surface);
+  border:1px solid var(--line);border-radius:var(--r-pill);padding:10px 18px;font-size:13px;
+  color:var(--ink-2);font-weight:600;box-shadow:var(--sh-sm)}
+.top .period b{color:var(--ink);font-weight:800}
+.hero{max-width:66ch}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--blue);background:var(--blue-tint);padding:6px 12px;border-radius:var(--r-pill);margin-bottom:16px}
+h1{font-size:clamp(26px,4vw,40px);font-weight:800;letter-spacing:-.03em;line-height:1.08}
+h1 .ac{color:var(--blue)}
+.hero p{color:var(--ink-2);margin-top:12px;font-size:15px;font-weight:500}
+
+/* ---- Section ---- */
+section{margin-top:40px}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:18px;flex-wrap:wrap}
+.kicker{font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.sec-title{font-size:22px;font-weight:800;letter-spacing:-.02em}
+.sec-note{font-size:13.5px;color:var(--ink-2);max-width:50ch;font-weight:500}
+
+/* ---- Cards ---- */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);
+  box-shadow:var(--sh-sm);animation:rise .55s cubic-bezier(.2,.8,.2,1) backwards}
+.card:hover{box-shadow:var(--sh-md)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.pad{padding:22px 24px}
+.g1{animation-delay:.03s}.g2{animation-delay:.09s}.g3{animation-delay:.15s}.g4{animation-delay:.21s}
+.g5{animation-delay:.27s}.g6{animation-delay:.33s}
+
+/* ---- KPIs ---- */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:20px 22px;
+  box-shadow:var(--sh-sm);position:relative;overflow:hidden}
+.kpi.lead{grid-column:span 2;background:linear-gradient(150deg,var(--blue),#2A1CFF);color:#fff;border:none;
+  box-shadow:var(--sh-blue)}
+.kpi.lead::after{content:"";position:absolute;right:-40px;top:-50px;width:150px;height:150px;border-radius:50%;
+  background:rgba(255,255,255,.12)}
+.kpi .ic{width:34px;height:34px;border-radius:10px;background:var(--blue-tint);display:grid;place-items:center;margin-bottom:14px}
+.kpi .ic svg{width:18px;height:18px;stroke:var(--blue);stroke-width:2.2;fill:none}
+.kpi.lead .ic{background:rgba(255,255,255,.16)}
+.kpi.lead .ic svg{stroke:#fff}
+.kpi .lbl{font-size:13px;color:var(--ink-2);font-weight:600}
+.kpi.lead .lbl{color:rgba(255,255,255,.82)}
+.kpi .val{font-size:29px;font-weight:800;letter-spacing:-.03em;margin-top:5px;line-height:1}
+.kpi.lead .val{font-size:42px}
+.kpi .foot{font-size:12.5px;color:var(--muted);margin-top:9px;font-weight:600}
+.kpi.lead .foot{color:rgba(255,255,255,.7)}
+
+/* ---- Objective split ---- */
+.obj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.obj{padding:22px 24px;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--surface);
+  position:relative;overflow:hidden;box-shadow:var(--sh-sm)}
+.obj::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--c)}
+.obj .tag{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:var(--ink-2)}
+.obj .tag .sw{width:11px;height:11px;border-radius:4px;background:var(--c)}
+.obj .big{font-size:33px;font-weight:800;margin-top:14px;letter-spacing:-.03em;line-height:1}
+.obj .big small{font-size:14px;font-weight:700;color:var(--muted)}
+.obj .row{display:flex;justify-content:space-between;align-items:center;font-size:13px;margin-top:14px;
+  padding-top:13px;border-top:1px solid var(--line)}
+.obj .row .k{color:var(--muted);font-weight:600}
+.obj .cpr{color:var(--c);font-weight:800;font-size:15px}
+.obj .row .v{font-weight:800}
+
+/* ---- Table ---- */
+.tbl-wrap{overflow-x:auto;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--surface);box-shadow:var(--sh-sm)}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:840px}
+thead th{position:sticky;top:0;background:var(--surface-2);text-align:right;padding:15px 18px;
+  font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);
+  cursor:pointer;user-select:none;white-space:nowrap;border-bottom:1px solid var(--line-2)}
+thead th:first-child{text-align:left}
+thead th:hover{color:var(--ink)}
+thead th.sorted{color:var(--blue)}
+thead th .arr{font-size:10px}
+tbody td{padding:13px 18px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap;font-weight:600}
+tbody td:first-child{text-align:left;white-space:normal;min-width:230px}
+tbody tr:hover{background:var(--blue-tint-2)}
+tbody tr:last-child td{border-bottom:none}
+.name{font-weight:700;color:var(--ink);display:block;line-height:1.35}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:3px 10px;
+  border-radius:var(--r-pill);margin-top:7px;color:var(--bc);background:color-mix(in srgb,var(--bc) 13%,white)}
+.badge .sw{width:7px;height:7px;border-radius:50%;background:var(--bc)}
+.spend-cell{position:relative;min-width:150px}
+.spend-bar{position:absolute;left:18px;right:18px;bottom:7px;height:4px;border-radius:3px;background:var(--line-2);overflow:hidden}
+.spend-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:var(--blue)}
+.spend-val{position:relative;font-weight:800}
+
+/* ---- Charts ---- */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-aud{display:grid;grid-template-columns:.9fr 1.1fr;gap:16px}
+.chart-title{font-size:15px;font-weight:800;letter-spacing:-.01em}
+.chart-sub{font-size:12.5px;color:var(--muted);margin:3px 0 16px;font-weight:600}
+.axis text{fill:var(--muted);font-size:10.5px;font-family:var(--font);font-weight:600}
+.grid-l{stroke:var(--line);stroke-width:1;stroke-dasharray:4 5}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-2);font-weight:600;margin-top:6px}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{width:11px;height:11px;border-radius:4px}
+
+/* ---- Age bars ---- */
+.hbars{display:flex;flex-direction:column;gap:12px;margin-top:2px}
+.hbar{display:grid;grid-template-columns:56px 1fr auto;align-items:center;gap:13px;font-size:13px}
+.hbar .lb{color:var(--ink-2);font-weight:700;text-align:right}
+.hbar .track{height:28px;background:var(--surface-2);border-radius:9px;overflow:hidden;border:1px solid var(--line)}
+.hbar .fill{height:100%;border-radius:9px;background:linear-gradient(90deg,var(--blue-400),var(--blue));transition:width .7s cubic-bezier(.2,.8,.2,1)}
+.hbar.top .fill{background:linear-gradient(90deg,#FF7A5C,var(--coral))}
+.hbar .vv{font-weight:800;min-width:60px;text-align:right}
+
+/* ---- Engagement ---- */
+.eng{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.eng .item{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:18px 16px;
+  text-align:center;box-shadow:var(--sh-sm)}
+.eng .item .ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;margin:0 auto 10px}
+.eng .item .ic svg{width:18px;height:18px;stroke-width:2.2;fill:none}
+.eng .item .v{font-size:23px;font-weight:800;letter-spacing:-.02em}
+.eng .item .l{font-size:11.5px;color:var(--ink-2);margin-top:5px;font-weight:600}
+.eng .item .v.plus{color:var(--green)}
+
+.tt{position:fixed;pointer-events:none;background:var(--ink);color:#fff;border-radius:10px;padding:8px 11px;
+  font-size:12.5px;font-weight:600;opacity:0;transition:opacity .12s;z-index:60;box-shadow:var(--sh-md);white-space:nowrap}
+.tt b{color:#7FA6FF}.tt .muted{color:#9aa0ad;font-size:11px}
+
+.foot-note{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-weight:600}
+
+@media(max-width:900px){
+  .kpis{grid-template-columns:repeat(2,1fr)}.kpi.lead{grid-column:span 2}
+  .obj-grid{grid-template-columns:1fr}.grid-2,.grid-aud{grid-template-columns:1fr}
+  .eng{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:560px){
+  .wrap{padding:0 16px}.kpis{grid-template-columns:1fr 1fr}.eng{grid-template-columns:repeat(2,1fr)}
+  .kpi .val{font-size:23px}.kpi.lead .val{font-size:33px}
+  .top .period{display:none}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="top">
+      <div class="brand">
+        <div class="logo"><svg viewBox="0 0 24 24" fill="none"><path d="M3 13h4l2 6 4-14 2 8h6" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="bn">Dr. Rafael <b>Gallassini</b><small>META ADS · ENGAJAMENTO</small></div>
+      </div>
+      <div class="period">📅 <b id="p-start"></b> — <b id="p-end"></b> · 27 dias</div>
+    </div>
+    <div class="hero">
+      <div class="eyebrow">✦ Relatório de campanhas</div>
+      <h1>Todo o desempenho das <span class="ac">campanhas</span> num só olhar</h1>
+      <p>Quanto foi investido, o que cada criativo entregou e para qual público. Os números que importam estão no topo — role para o detalhe.</p>
+    </div>
+  </header>
+
+  <section style="margin-top:28px"><div class="kpis" id="kpis"></div></section>
+
+  <section>
+    <div class="sec-head">
+      <div><div class="kicker">Leitura essencial</div><div class="sec-title">Duas estratégias, dois custos</div></div>
+      <p class="sec-note">A conta roda objetivos diferentes ao mesmo tempo. Comparar “custo por resultado” entre eles é comparar coisas distintas — por isso estão separados.</p>
+    </div>
+    <div class="obj-grid" id="objectives"></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div><div class="kicker">Ranking de criativos</div><div class="sec-title">Desempenho anúncio por anúncio</div></div>
+      <p class="sec-note">Clique em qualquer cabeçalho para reordenar. A barra azul mostra o peso de cada criativo no investimento.</p>
+    </div>
+    <div class="tbl-wrap"><table id="tbl"><thead><tr id="thead"></tr></thead><tbody id="tbody"></tbody></table></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div><div class="kicker">Evolução diária</div><div class="sec-title">Como o mês se comportou</div></div>
+      <p class="sec-note">Investimento e cliques no link, dia a dia. Passe o mouse para ver os valores exatos.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card pad g1"><div class="chart-title">Investimento por dia</div><div class="chart-sub">Total: <span id="t-spend"></span></div><div id="chart-spend"></div></div>
+      <div class="card pad g2"><div class="chart-title">Cliques no link por dia</div><div class="chart-sub">Total: <span id="t-clicks"></span></div><div id="chart-clicks"></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div><div class="kicker">Público alcançado</div><div class="sec-title">Quem está respondendo</div></div>
+      <p class="sec-note">Público majoritariamente feminino, concentrado entre 45 e 64 anos — onde os resultados também se concentram.</p>
+    </div>
+    <div class="grid-aud">
+      <div class="card pad g1"><div class="chart-title">Investimento por gênero</div><div class="chart-sub">Distribuição do valor investido</div><div id="chart-gender"></div><div class="legend" id="gender-legend"></div></div>
+      <div class="card pad g2"><div class="chart-title">Resultados por faixa etária</div><div class="chart-sub">Onde os anúncios mais convertem</div><div class="hbars" id="age-bars"></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div><div class="kicker">Engajamento gerado</div><div class="sec-title">O que os criativos movimentaram</div></div>
+      <p class="sec-note">Interações somadas de todos os anúncios no período.</p>
+    </div>
+    <div class="eng" id="eng"></div>
+  </section>
+
+  <div class="foot-note">
+    <span>Fonte: exportação Meta Ads. Investimento = CPM × impressões (idêntico a CPC × cliques na base).</span>
+    <span id="gen-date"></span>
+  </div>
+</div>
+<div class="tt" id="tt"></div>
+
+<script>
+const DATA = {"totals": {"impr": 188762.0, "alcance": 125798.0, "freq": 1.5005167, "cliques": 7470.0, "ctr": 6.23536517, "cpc": 0.72595582, "cpm": 28.72871658, "spend": 5422.89, "reacoes": 3422.0, "coment": 145.0, "salv": 233.0, "compart": 327.0, "engaj": 78081.0, "segIG": 1903.0, "curtFB": 413.0, "tempo_video": 14.0, "result_total": 6319.0}, "ads": [{"name": "O maior veneno para a saúde da mulher — Cópia", "full": "AD - O maior veneno para a saúde da mulher — Cópia", "impr": 35650.0, "alcance": 21279.0, "freq": 1.67536068, "cliques": 693.0, "ctr": 5.53436185, "cpc": 2.8307215, "result": 214.0, "tipo": "Conversas por mensagem iniciadas", "custo_result": 9.1667757, "reacoes": 740.0, "coment": 61.0, "salv": 30.0, "compart": 63.0, "engaj": 16945.0, "segIG": 63.0, "curtFB": 16.0, "tempo_video": 19.0, "spend": 1961.69, "cpr": 9.17}, {"name": "Você não está engordando por falta de esforço.", "full": "AD - Você não está engordando por falta de esforço.", "impr": 11956.0, "alcance": 7817.0, "freq": 1.52948702, "cliques": 146.0, "ctr": 3.70525259, "cpc": 5.35308219, "result": 75.0, "tipo": "Conversas por mensagem iniciadas", "custo_result": 10.42066667, "reacoes": 276.0, "coment": 33.0, "salv": 30.0, "compart": 33.0, "engaj": 4357.0, "segIG": 34.0, "curtFB": 4.0, "tempo_video": 13.0, "spend": 781.55, "cpr": 10.42}, {"name": "Não basta ter hormônio da tireoide. Ele precisa FUNCIONAR dentro do corpo.", "full": "AD - Não basta ter hormônio da tireoide. Ele precisa FUNCIONAR dentro do corpo.", "impr": 10424.0, "alcance": 6074.0, "freq": 1.71616727, "cliques": 101.0, "ctr": 3.81811205, "cpc": 4.77257426, "result": 50.0, "tipo": "Conversas por mensagem iniciadas", "custo_result": 9.6406, "reacoes": 174.0, "coment": 4.0, "salv": 12.0, "compart": 14.0, "engaj": 3406.0, "segIG": 22.0, "curtFB": 7.0, "tempo_video": 8.0, "spend": 482.03, "cpr": 9.64}, {"name": "Diabete porque come carboidrato", "full": "AD - Diabete porque come carboidrato", "impr": 30348.0, "alcance": 22161.0, "freq": 1.36943279, "cliques": 2157.0, "ctr": 10.40925267, "cpc": 0.19955494, "result": 1795.0, "tipo": "Visitas ao perfil do Instagram", "custo_result": 0.23979944, "reacoes": 854.0, "coment": 9.0, "salv": 71.0, "compart": 98.0, "engaj": 16352.0, "segIG": 953.0, "curtFB": 175.0, "tempo_video": 16.0, "spend": 430.44, "cpr": 0.24}, {"name": "Maior veneno não é comer gordura", "full": "AD - Maior veneno não é comer gordura", "impr": 26399.0, "alcance": 20664.0, "freq": 1.27753581, "cliques": 1704.0, "ctr": 8.29198076, "cpc": 0.24754695, "result": 1587.0, "tipo": "Visitas ao perfil do Instagram", "custo_result": 0.2657971, "reacoes": 532.0, "coment": 12.0, "salv": 30.0, "compart": 51.0, "engaj": 14796.0, "segIG": 524.0, "curtFB": 40.0, "tempo_video": 23.0, "spend": 421.82, "cpr": 0.27}, {"name": "Mesmo cansada, não consegue dormir", "full": "AD - Mesmo cansada, não consegue dormir", "impr": 42620.0, "alcance": 40107.0, "freq": 1.06265739, "cliques": 1308.0, "ctr": 3.01736274, "cpc": 0.27538991, "result": 1290.0, "tipo": "Visitas ao perfil do Instagram", "custo_result": 0.27923256, "reacoes": 99.0, "coment": 3.0, "salv": 16.0, "compart": 12.0, "engaj": 8521.0, "segIG": 15.0, "curtFB": 4.0, "tempo_video": 6.0, "spend": 360.21, "cpr": 0.28}, {"name": "Deita e nao dorme, mesmo cansada", "full": "AD - Deita e nao dorme, mesmo cansada", "impr": 4773.0, "alcance": 3173.0, "freq": 1.50425465, "cliques": 71.0, "ctr": 3.68740834, "cpc": 4.05422535, "result": 34.0, "tipo": "Conversas por mensagem iniciadas", "custo_result": 8.46617647, "reacoes": 92.0, "coment": 12.0, "salv": 5.0, "compart": 17.0, "engaj": 1820.0, "segIG": 8.0, "curtFB": 3.0, "tempo_video": 10.0, "spend": 287.85, "cpr": 8.47}, {"name": "2 Médicos / Resultados Diferentes", "full": "AD - 2 Médicos / Resultados Diferentes", "impr": 7140.0, "alcance": 5212.0, "freq": 1.36991558, "cliques": 467.0, "ctr": 12.32492997, "cpc": 0.41535332, "result": 544.0, "tipo": "Visitas ao perfil e à Página", "custo_result": 0.3565625, "reacoes": 284.0, "coment": 1.0, "salv": 13.0, "compart": 13.0, "engaj": 4252.0, "segIG": 58.0, "curtFB": 64.0, "tempo_video": 9.0, "spend": 193.97, "cpr": 0.36}, {"name": "Você não está engordando por falta de esforço.", "full": "AD - Você não está engordando por falta de esforço.", "impr": 2301.0, "alcance": 1646.0, "freq": 1.39793439, "cliques": 31.0, "ctr": 3.7809648, "cpc": 5.17064516, "result": 15.0, "tipo": "Conversas por mensagem iniciadas", "custo_result": 10.686, "reacoes": 51.0, "coment": 8.0, "salv": 3.0, "compart": 3.0, "engaj": 810.0, "segIG": 6.0, "curtFB": 0.0, "tempo_video": 13.0, "spend": 160.29, "cpr": 10.69}, {"name": "Maior Veneno não é o Açucar", "full": "AD - Maior Veneno não é o Açucar", "impr": 5328.0, "alcance": 4620.0, "freq": 1.15324675, "cliques": 368.0, "ctr": 10.52927928, "cpc": 0.22478261, "result": 285.0, "tipo": "Visitas ao perfil do Instagram", "custo_result": 0.29024561, "reacoes": 130.0, "coment": 1.0, "salv": 8.0, "compart": 13.0, "engaj": 2779.0, "segIG": 142.0, "curtFB": 56.0, "tempo_video": 27.0, "spend": 82.72, "cpr": 0.29}, {"name": "A cintura não aumenta só por conta da idade", "full": "AD - A cintura não aumenta só por conta da idade", "impr": 3928.0, "alcance": 3560.0, "freq": 1.10337079, "cliques": 171.0, "ctr": 5.85539715, "cpc": 0.4594152, "result": 163.0, "tipo": "Visitas ao perfil do Instagram", "custo_result": 0.48196319, "reacoes": 54.0, "coment": 0.0, "salv": 4.0, "compart": 3.0, "engaj": 1620.0, "segIG": 47.0, "curtFB": 6.0, "tempo_video": 8.0, "spend": 78.56, "cpr": 0.48}, {"name": "O seu corpo não separa o Emocional do Fisico", "full": "AD - O seu corpo não separa o Emocional do Fisico", "impr": 1566.0, "alcance": 1360.0, "freq": 1.15147059, "cliques": 70.0, "ctr": 10.79182631, "cpc": 0.69271429, "result": 87.0, "tipo": "Visitas ao perfil e à Página", "custo_result": 0.55735632, "reacoes": 84.0, "coment": 0.0, "salv": 8.0, "compart": 3.0, "engaj": 862.0, "segIG": 17.0, "curtFB": 25.0, "tempo_video": 7.0, "spend": 48.49, "cpr": 0.56}, {"name": "Se você já emagreceu, recuperou todo o peso e ainda ganhou alguns quilos a mais, saiba que isso não acontece por falta de força de vontade.", "full": "AD - Se você já emagreceu, recuperou todo o peso e ainda ganhou alguns quilos a mais, saiba que isso não acontece por falta de força de vontade.", "impr": 496.0, "alcance": 355.0, "freq": 1.3971831, "cliques": 5.0, "ctr": 2.82258065, "cpc": 6.51, "result": 2.0, "tipo": "Conversas por mensagem iniciadas", "custo_result": 16.275, "reacoes": 15.0, "coment": 0.0, "salv": 0.0, "compart": 0.0, "engaj": 196.0, "segIG": 0.0, "curtFB": 0.0, "tempo_video": 11.0, "spend": 32.55, "cpr": 16.27}, {"name": "O mito sobre a reposição hormonal", "full": "AD - O mito sobre a reposição hormonal", "impr": 1904.0, "alcance": 1883.0, "freq": 1.01115242, "cliques": 69.0, "ctr": 3.25630252, "cpc": 0.33913043, "result": 65.0, "tipo": "Visitas ao perfil do Instagram", "custo_result": 0.36, "reacoes": 0.0, "coment": 0.0, "salv": 0.0, "compart": 0.0, "engaj": 333.0, "segIG": 1.0, "curtFB": 0.0, "tempo_video": 2.0, "spend": 23.4, "cpr": 0.36}, {"name": "Sua glicose está normal, mas a barriga continua crescendo?", "full": "AD - Sua glicose está normal, mas a barriga continua crescendo?", "impr": 405.0, "alcance": 296.0, "freq": 1.36824324, "cliques": 1.0, "ctr": 2.71604938, "cpc": 21.86, "result": 0.0, "tipo": "", "custo_result": 0.0, "reacoes": 6.0, "coment": 0.0, "salv": 0.0, "compart": 0.0, "engaj": 96.0, "segIG": 1.0, "curtFB": 0.0, "tempo_video": 10.0, "spend": 21.86, "cpr": 0}, {"name": "Coma menos e gaste mais", "full": "AD - Coma menos e gaste mais", "impr": 1311.0, "alcance": 1227.0, "freq": 1.06845966, "cliques": 46.0, "ctr": 4.88176964, "cpc": 0.35826087, "result": 50.0, "tipo": "Visitas ao perfil e à Página", "custo_result": 0.3296, "reacoes": 15.0, "coment": 0.0, "salv": 2.0, "compart": 2.0, "engaj": 320.0, "segIG": 7.0, "curtFB": 10.0, "tempo_video": 3.0, "spend": 16.48, "cpr": 0.33}, {"name": "O Equilibrio hormonal é necessario para a saude mental da mulher", "full": "AD - O Equilibrio hormonal é necessario para a saude mental da mulher", "impr": 538.0, "alcance": 498.0, "freq": 1.08032129, "cliques": 21.0, "ctr": 4.46096654, "cpc": 0.76952381, "result": 23.0, "tipo": "Visitas ao perfil do Instagram", "custo_result": 0.7026087, "reacoes": 14.0, "coment": 1.0, "salv": 1.0, "compart": 1.0, "engaj": 248.0, "segIG": 4.0, "curtFB": 1.0, "tempo_video": 8.0, "spend": 16.16, "cpr": 0.7}, {"name": "O que ninguem te contou sobre o calorao", "full": "AD - O que ninguem te contou sobre o calorao", "impr": 1381.0, "alcance": 1381.0, "freq": 1.0, "cliques": 33.0, "ctr": 2.31716148, "cpc": 0.48575758, "result": 33.0, "tipo": "Visitas ao perfil do Instagram", "custo_result": 0.48575758, "reacoes": 0.0, "coment": 0.0, "salv": 0.0, "compart": 0.0, "engaj": 242.0, "segIG": 0.0, "curtFB": 0.0, "tempo_video": 2.0, "spend": 16.03, "cpr": 0.49}, {"name": "Você não precisa tentar mais uma dieta", "full": "AD - Você não precisa tentar mais uma dieta", "impr": 199.0, "alcance": 174.0, "freq": 1.14367816, "cliques": 6.0, "ctr": 4.0201005, "cpc": 0.645, "result": 6.0, "tipo": "Visitas ao perfil e à Página", "custo_result": 0.645, "reacoes": 0.0, "coment": 0.0, "salv": 0.0, "compart": 0.0, "engaj": 88.0, "segIG": 1.0, "curtFB": 1.0, "tempo_video": 7.0, "spend": 3.87, "cpr": 0.64}, {"name": "A Dor de cabeça pode ser apenas o Começo", "full": "AD - A Dor de cabeça pode ser apenas o Começo", "impr": 85.0, "alcance": 79.0, "freq": 1.07594937, "cliques": 2.0, "ctr": 4.70588235, "cpc": 1.455, "result": 1.0, "tipo": "Visitas ao perfil e à Página", "custo_result": 2.91, "reacoes": 2.0, "coment": 0.0, "salv": 0.0, "compart": 1.0, "engaj": 37.0, "segIG": 0.0, "curtFB": 1.0, "tempo_video": 6.0, "spend": 2.91, "cpr": 2.91}, {"name": "A Gordura Animal é o Monjaro Natural", "full": "AD - A Gordura Animal é o Monjaro Natural", "impr": 10.0, "alcance": 10.0, "freq": 1.0, "cliques": 0.0, "ctr": 0.0, "cpc": 0.0, "result": 0.0, "tipo": "", "custo_result": 0.0, "reacoes": 0.0, "coment": 0.0, "salv": 0.0, "compart": 0.0, "engaj": 1.0, "segIG": 0.0, "curtFB": 0.0, "tempo_video": 8.0, "spend": 0.01, "cpr": 0}], "daily": [{"day": "2026-07-01", "spend": 149.0, "impr": 3130.0, "cliques": 34.0, "result": 13.0, "alcance": 2875.0, "engaj": 1198.0}, {"day": "2026-07-02", "spend": 156.38, "impr": 3299.0, "cliques": 56.0, "result": 22.0, "alcance": 2879.0, "engaj": 1333.0}, {"day": "2026-07-03", "spend": 166.32, "impr": 4738.0, "cliques": 155.0, "result": 143.0, "alcance": 4277.0, "engaj": 2003.0}, {"day": "2026-07-04", "spend": 171.45, "impr": 3995.0, "cliques": 148.0, "result": 132.0, "alcance": 3461.0, "engaj": 1993.0}, {"day": "2026-07-05", "spend": 151.09, "impr": 3587.0, "cliques": 136.0, "result": 146.0, "alcance": 3220.0, "engaj": 1817.0}, {"day": "2026-07-06", "spend": 182.99, "impr": 4154.0, "cliques": 123.0, "result": 125.0, "alcance": 3559.0, "engaj": 2035.0}, {"day": "2026-07-07", "spend": 218.74, "impr": 4428.0, "cliques": 144.0, "result": 146.0, "alcance": 3876.0, "engaj": 2140.0}, {"day": "2026-07-08", "spend": 217.68, "impr": 5548.0, "cliques": 259.0, "result": 214.0, "alcance": 5234.0, "engaj": 2694.0}, {"day": "2026-07-09", "spend": 201.18, "impr": 7761.0, "cliques": 393.0, "result": 306.0, "alcance": 6970.0, "engaj": 3990.0}, {"day": "2026-07-10", "spend": 176.29, "impr": 5814.0, "cliques": 288.0, "result": 227.0, "alcance": 5379.0, "engaj": 2940.0}, {"day": "2026-07-11", "spend": 192.65, "impr": 7085.0, "cliques": 277.0, "result": 183.0, "alcance": 6573.0, "engaj": 3350.0}, {"day": "2026-07-12", "spend": 191.68, "impr": 6404.0, "cliques": 379.0, "result": 276.0, "alcance": 5762.0, "engaj": 3199.0}, {"day": "2026-07-13", "spend": 276.24, "impr": 9489.0, "cliques": 424.0, "result": 350.0, "alcance": 8962.0, "engaj": 3536.0}, {"day": "2026-07-14", "spend": 309.77, "impr": 8639.0, "cliques": 428.0, "result": 342.0, "alcance": 8066.0, "engaj": 4150.0}, {"day": "2026-07-15", "spend": 239.56, "impr": 8127.0, "cliques": 385.0, "result": 316.0, "alcance": 7512.0, "engaj": 3898.0}, {"day": "2026-07-16", "spend": 209.74, "impr": 10585.0, "cliques": 323.0, "result": 275.0, "alcance": 10166.0, "engaj": 2978.0}, {"day": "2026-07-17", "spend": 191.17, "impr": 8729.0, "cliques": 290.0, "result": 261.0, "alcance": 8340.0, "engaj": 2581.0}, {"day": "2026-07-18", "spend": 181.11, "impr": 17710.0, "cliques": 294.0, "result": 260.0, "alcance": 17266.0, "engaj": 2813.0}, {"day": "2026-07-19", "spend": 214.04, "impr": 13971.0, "cliques": 439.0, "result": 413.0, "alcance": 13698.0, "engaj": 3767.0}, {"day": "2026-07-20", "spend": 195.73, "impr": 5255.0, "cliques": 235.0, "result": 188.0, "alcance": 4928.0, "engaj": 2477.0}, {"day": "2026-07-21", "spend": 211.82, "impr": 2881.0, "cliques": 59.0, "result": 29.0, "alcance": 2649.0, "engaj": 1272.0}, {"day": "2026-07-22", "spend": 302.67, "impr": 8781.0, "cliques": 379.0, "result": 339.0, "alcance": 8000.0, "engaj": 4192.0}, {"day": "2026-07-23", "spend": 254.83, "impr": 9004.0, "cliques": 477.0, "result": 439.0, "alcance": 8273.0, "engaj": 4816.0}, {"day": "2026-07-24", "spend": 203.78, "impr": 7348.0, "cliques": 320.0, "result": 266.0, "alcance": 6639.0, "engaj": 3602.0}, {"day": "2026-07-25", "spend": 226.82, "impr": 7814.0, "cliques": 387.0, "result": 329.0, "alcance": 7248.0, "engaj": 4048.0}, {"day": "2026-07-26", "spend": 211.57, "impr": 9416.0, "cliques": 558.0, "result": 501.0, "alcance": 8828.0, "engaj": 4706.0}, {"day": "2026-07-27", "spend": 18.59, "impr": 1070.0, "cliques": 80.0, "result": 78.0, "alcance": 1048.0, "engaj": 553.0}], "gender": [{"g": "unknown", "spend": 10.7, "impr": 385.0, "cliques": 15.0, "result": 61.0}, {"g": "female", "spend": 5005.86, "impr": 159712.0, "cliques": 6643.0, "result": 5523.0}, {"g": "male", "spend": 406.33, "impr": 28665.0, "cliques": 812.0, "result": 735.0}], "age": [{"age": "18-24", "spend": 131.03, "impr": 21282.0, "cliques": 273.0, "result": 260.0}, {"age": "25-34", "spend": 229.68, "impr": 15279.0, "cliques": 426.0, "result": 400.0}, {"age": "35-44", "spend": 799.82, "impr": 25801.0, "cliques": 848.0, "result": 771.0}, {"age": "45-54", "spend": 1697.68, "impr": 44896.0, "cliques": 1534.0, "result": 1307.0}, {"age": "55-64", "spend": 1572.8, "impr": 48461.0, "cliques": 2301.0, "result": 1857.0}, {"age": "65+", "spend": 991.62, "impr": 33019.0, "cliques": 2087.0, "result": 1675.0}, {"age": "Unknown", "spend": 0.26, "impr": 24.0, "cliques": 1.0, "result": 52.0}], "result_types": [{"tipo": "Conversas por mensagem iniciadas", "result": 390.0, "spend": 3705.96}, {"tipo": "Visitas ao perfil do Instagram", "result": 5241.0, "spend": 1429.34}, {"tipo": "Visitas ao perfil e à Página", "result": 688.0, "spend": 265.72}], "period": {"start": "2026-07-01", "end": "2026-07-29"}};
+const nf=new Intl.NumberFormat('pt-BR');
+const cf=new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
+const num=v=>nf.format(Math.round(v));
+const brl=v=>cf.format(v);
+const pf=v=>v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})+'%';
+const OBJ_META={
+ 'Conversas por mensagem iniciadas':{short:'Conversas iniciadas',hex:'#0047FF',unit:'conversas'},
+ 'Visitas ao perfil do Instagram':{short:'Visitas ao perfil (IG)',hex:'#12B76A',unit:'visitas'},
+ 'Visitas ao perfil e à Página':{short:'Visitas perfil + página',hex:'#F5A623',unit:'visitas'}
+};
+const objMeta=t=>OBJ_META[t]||{short:t||'Sem objetivo',hex:'#8A92A3',unit:'result.'};
+const fmtDate=s=>{const[y,m,dd]=s.split('-');const mo=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];return `${+dd} ${mo[+m-1]} ${y}`;};
+document.getElementById('p-start').textContent=fmtDate(DATA.period.start);
+document.getElementById('p-end').textContent=fmtDate(DATA.period.end);
+document.getElementById('gen-date').textContent='Gerado em '+fmtDate('2026-08-03');
+
+const T=DATA.totals, totalResults=DATA.result_types.reduce((s,r)=>s+r.result,0);
+const I={money:'M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6',check:'M20 6L9 17l-5-5',
+ eye:'M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z',click:'M9 3v10l2.5-2.5L14 15l2-1-2.5-4H17L9 3z',
+ chart:'M3 3v18h18M7 14l3-3 3 3 4-6',freq:'M17 2l4 4-4 4M3 11v-1a4 4 0 014-4h14M7 22l-4-4 4-4M21 13v1a4 4 0 01-4 4H3'};
+const kpis=[
+ {lead:1,lbl:'Investimento total',val:brl(T.spend),foot:'em 27 dias de veiculação',ic:I.money},
+ {lbl:'Resultados gerados',val:num(totalResults),foot:'conversas + visitas ao perfil',ic:I.check},
+ {lbl:'Impressões',val:num(T.impr),foot:'Alcance de '+num(T.alcance)+' pessoas',ic:I.eye},
+ {lbl:'Cliques no link',val:num(T.cliques),foot:'CTR de '+pf(T.ctr),ic:I.click},
+ {lbl:'CTR médio',val:pf(T.ctr),foot:'cliques ÷ impressões',ic:I.chart},
+ {lbl:'CPC médio',val:brl(T.cpc),foot:'custo por clique',ic:I.money},
+ {lbl:'Frequência',val:T.freq.toLocaleString('pt-BR',{maximumFractionDigits:2}),foot:'vezes que cada pessoa viu',ic:I.freq},
+];
+document.getElementById('kpis').innerHTML=kpis.map(k=>`
+ <div class="kpi ${k.lead?'lead':''}">
+   <div class="ic"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="${k.ic}"/></svg></div>
+   <div class="lbl">${k.lbl}</div><div class="val tnum">${k.val}</div><div class="foot">${k.foot}</div>
+ </div>`).join('');
+
+const objSorted=[...DATA.result_types].sort((a,b)=>b.spend-a.spend);
+document.getElementById('objectives').innerHTML=objSorted.map(o=>{
+ const m=objMeta(o.tipo),pct=o.spend/T.spend*100,cpr=o.result>0?o.spend/o.result:0;
+ return `<div class="obj" style="--c:${m.hex}">
+   <div class="tag"><span class="sw"></span>${o.tipo}</div>
+   <div class="big tnum">${num(o.result)} <small>${m.unit}</small></div>
+   <div class="row"><span class="k">Custo por ${m.unit.replace(/s$/,'')}</span><span class="cpr tnum">${brl(cpr)}</span></div>
+   <div class="row"><span class="k">Investido</span><span class="v tnum">${brl(o.spend)} · ${pct.toFixed(0)}%</span></div>
+ </div>`;}).join('');
+
+const maxSpend=Math.max(...DATA.ads.map(a=>a.spend));
+const cols=[{k:'name',l:'Criativo'},{k:'spend',l:'Investimento'},{k:'impr',l:'Impressões'},{k:'ctr',l:'CTR'},{k:'cliques',l:'Cliques'},{k:'result',l:'Resultados'},{k:'cpr',l:'Custo/result.'}];
+let sortKey='spend',sortDir=-1;
+function renderHead(){
+ document.getElementById('thead').innerHTML=cols.map(c=>{const on=c.k===sortKey;return `<th data-k="${c.k}" class="${on?'sorted':''}">${c.l} <span class="arr">${on?(sortDir<0?'▾':'▴'):''}</span></th>`;}).join('');
+ document.querySelectorAll('#thead th').forEach(th=>th.onclick=()=>{const k=th.dataset.k;if(k===sortKey)sortDir*=-1;else{sortKey=k;sortDir=k==='name'?1:-1;}renderHead();renderBody();});
+}
+function renderBody(){
+ const rows=[...DATA.ads].sort((a,b)=>{let x=a[sortKey],y=b[sortKey];return typeof x==='string'?x.localeCompare(y)*sortDir:(x-y)*sortDir;});
+ document.getElementById('tbody').innerHTML=rows.map(a=>{const m=objMeta(a.tipo),w=a.spend/maxSpend*100;
+  return `<tr>
+   <td><span class="name">${a.name}</span><span class="badge" style="--bc:${m.hex}"><span class="sw"></span>${m.short}</span></td>
+   <td class="spend-cell"><span class="spend-val tnum">${brl(a.spend)}</span><span class="spend-bar"><i style="width:${w}%"></i></span></td>
+   <td class="tnum">${num(a.impr)}</td><td class="tnum">${pf(a.ctr)}</td><td class="tnum">${num(a.cliques)}</td>
+   <td class="tnum">${num(a.result)}</td><td class="tnum">${a.result>0?brl(a.cpr):'—'}</td>
+  </tr>`;}).join('');
+}
+renderHead();renderBody();
+
+const tt=document.getElementById('tt');
+function showTT(h,x,y){tt.innerHTML=h;tt.style.opacity=1;const r=tt.getBoundingClientRect();let nx=x+14,ny=y-r.height-12;if(nx+r.width>innerWidth-8)nx=x-r.width-14;if(ny<8)ny=y+18;tt.style.left=nx+'px';tt.style.top=ny+'px';}
+const hideTT=()=>tt.style.opacity=0;
+
+function lineChart(elId,data,valKey,label,fmt,color){
+ const W=560,H=220,m={t:14,r:14,b:26,l:52},iw=W-m.l-m.r,ih=H-m.t-m.b;
+ const maxV=Math.max(...data.map(d=>d[valKey]))*1.12||1,n=data.length;
+ const x=i=>m.l+(n<=1?iw/2:iw*i/(n-1)),y=v=>m.t+ih-(v/maxV)*ih;
+ let grid='';for(let i=0;i<=4;i++){const v=maxV*i/4,yy=y(v);grid+=`<line class="grid-l" x1="${m.l}" y1="${yy}" x2="${W-m.r}" y2="${yy}"/><text x="${m.l-8}" y="${yy+3}" text-anchor="end">${fmt(v).replace('R$\u00a0','R$').replace(',00','')}</text>`;}
+ let ln='';data.forEach((d,i)=>ln+=(i?'L':'M')+x(i)+' '+y(d[valKey])+' ');
+ const ar=ln+`L${x(n-1)} ${m.t+ih} L${x(0)} ${m.t+ih} Z`;
+ let xl='';data.forEach((d,i)=>{if(i%5===0||i===n-1)xl+=`<text x="${x(i)}" y="${H-8}" text-anchor="middle">${+d.day.slice(8)}</text>`;});
+ let dots='';data.forEach((d,i)=>dots+=`<circle cx="${x(i)}" cy="${y(d[valKey])}" r="3.2" fill="${color}" stroke="#fff" stroke-width="1.6" class="pt" data-i="${i}"/>`);
+ const gid='g'+elId;
+ const el=document.getElementById(elId);
+ el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" class="axis" style="width:100%"><defs><linearGradient id="${gid}" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="${color}" stop-opacity=".18"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></linearGradient></defs>${grid}<path d="${ar}" fill="url(#${gid})"/><path d="${ln}" fill="none" stroke="${color}" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/><line id="${gid}-cr" x1="0" y1="${m.t}" x2="0" y2="${m.t+ih}" stroke="${color}" stroke-width="1" stroke-dasharray="3 3" opacity="0"/>${dots}<rect x="${m.l}" y="${m.t}" width="${iw}" height="${ih}" fill="transparent" id="${gid}-hit"/>${xl}</svg>`;
+ const svgEl=el.querySelector('svg'),cr=el.querySelector('#'+gid+'-cr'),hit=el.querySelector('#'+gid+'-hit');
+ hit.addEventListener('mousemove',ev=>{const r=svgEl.getBoundingClientRect();const sx=(ev.clientX-r.left)/r.width*W;let i=Math.round((sx-m.l)/(iw/(n-1)));i=Math.max(0,Math.min(n-1,i));const d=data[i];cr.setAttribute('x1',x(i));cr.setAttribute('x2',x(i));cr.setAttribute('opacity','.5');el.querySelectorAll('.pt').forEach(p=>p.setAttribute('r',p.dataset.i==i?'5':'3.2'));showTT(`<div class="muted">${fmtDate(d.day)}</div><b>${fmt(d[valKey])}</b> ${label}`,ev.clientX,ev.clientY);});
+ hit.addEventListener('mouseleave',()=>{cr.setAttribute('opacity','0');hideTT();el.querySelectorAll('.pt').forEach(p=>p.setAttribute('r','3.2'));});
+}
+document.getElementById('t-spend').textContent=brl(T.spend);
+document.getElementById('t-clicks').textContent=num(T.cliques)+' cliques';
+lineChart('chart-spend',DATA.daily,'spend','investido',brl,'#0047FF');
+lineChart('chart-clicks',DATA.daily,'cliques','cliques',num,'#FC4A3C');
+
+const GEN_LABEL={female:'Feminino',male:'Masculino',unknown:'Não identificado'};
+const GEN_COLOR={female:'#0047FF',male:'#FC4A3C',unknown:'#B8BEC9'};
+(function(){
+ const g=[...DATA.gender].sort((a,b)=>b.spend-a.spend),total=g.reduce((s,x)=>s+x.spend,0);
+ const cx=110,cy=110,r=82,rin=52;let a0=-Math.PI/2,segs='';
+ g.forEach(x=>{const f=x.spend/total,a1=a0+f*2*Math.PI,lg=f>.5?1:0;const P=(a,rr)=>[cx+rr*Math.cos(a),cy+rr*Math.sin(a)];const[x1,y1]=P(a0,r),[x2,y2]=P(a1,r),[x3,y3]=P(a1,rin),[x4,y4]=P(a0,rin);segs+=`<path d="M${x1} ${y1} A${r} ${r} 0 ${lg} 1 ${x2} ${y2} L${x3} ${y3} A${rin} ${rin} 0 ${lg} 0 ${x4} ${y4} Z" fill="${GEN_COLOR[x.g]}" stroke="#fff" stroke-width="2.5" class="seg" data-g="${x.g}" data-v="${x.spend}" data-p="${(f*100).toFixed(1)}" style="cursor:pointer"/>`;a0=a1;});
+ document.getElementById('chart-gender').innerHTML=`<svg viewBox="0 0 220 220" style="max-width:230px;margin:0 auto">${segs}<text x="110" y="103" text-anchor="middle" fill="#0C0E14" font-size="30" font-weight="800">${(g[0].spend/total*100).toFixed(0)}%</text><text x="110" y="124" text-anchor="middle" fill="#8A92A3" font-size="12" font-weight="700">feminino</text></svg>`;
+ document.getElementById('gender-legend').innerHTML=g.map(x=>`<span><i style="background:${GEN_COLOR[x.g]}"></i>${GEN_LABEL[x.g]} · <b class="tnum">${(x.spend/total*100).toFixed(1)}%</b></span>`).join('');
+ document.querySelectorAll('#chart-gender .seg').forEach(s=>{s.addEventListener('mousemove',ev=>showTT(`${GEN_LABEL[s.dataset.g]}<br><b>${brl(+s.dataset.v)}</b> · ${s.dataset.p}%`,ev.clientX,ev.clientY));s.addEventListener('mouseleave',hideTT);});
+})();
+
+(function(){
+ let ages=DATA.age.filter(a=>a.age!=='Unknown').sort((a,b)=>{const o=['18-24','25-34','35-44','45-54','55-64','65+'];return o.indexOf(a.age)-o.indexOf(b.age);});
+ const maxR=Math.max(...ages.map(a=>a.result)),topAge=[...ages].sort((a,b)=>b.result-a.result)[0].age;
+ document.getElementById('age-bars').innerHTML=ages.map(a=>`<div class="hbar ${a.age===topAge?'top':''}" data-age="${a.age}" data-sp="${a.spend}" data-cl="${a.cliques}" data-r="${a.result}"><span class="lb">${a.age}</span><span class="track"><span class="fill" style="width:${a.result/maxR*100}%"></span></span><span class="vv tnum">${num(a.result)}</span></div>`).join('');
+ document.querySelectorAll('#age-bars .hbar').forEach(b=>{b.addEventListener('mousemove',ev=>showTT(`<b>${b.dataset.age} anos</b><br>${num(+b.dataset.r)} resultados · ${brl(+b.dataset.sp)} · ${num(+b.dataset.cl)} cliques`,ev.clientX,ev.clientY));b.addEventListener('mouseleave',hideTT);});
+})();
+
+const EI={heart:'M12 21s-7.5-4.7-10-9.3C.6 8.9 2 5.5 5.2 5.1 7.2 4.9 8.9 6 12 8.6 15.1 6 16.8 4.9 18.8 5.1 22 5.5 23.4 8.9 22 11.7 19.5 16.3 12 21 12 21z',
+ share:'M18 8a3 3 0 10-2.8-4M6 15a3 3 0 100 0m12 5a3 3 0 10-2.8-4M8.6 13.5l6.8 4M15.4 6.5l-6.8 4',
+ comment:'M21 11.5a8.4 8.4 0 01-11.9 7.6L3 21l1.9-6.1A8.4 8.4 0 1121 11.5z',
+ save:'M6 3h12a1 1 0 011 1v17l-7-4-7 4V4a1 1 0 011-1z',
+ ig:'M12 2a10 10 0 100 20 10 10 0 000-20zM12 8v8M8 12h8',
+ fb:'M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z'};
+const eng=[
+ {v:num(T.reacoes),l:'Reações ao post',ic:EI.heart,c:'coral'},
+ {v:num(T.compart),l:'Compartilhamentos',ic:EI.share,c:'blue'},
+ {v:num(T.coment),l:'Comentários',ic:EI.comment,c:'violet'},
+ {v:num(T.salv),l:'Salvamentos',ic:EI.save,c:'amber'},
+ {v:'+'+num(T.segIG),l:'Seguidores no Instagram',ic:EI.ig,c:'green',plus:1},
+ {v:'+'+num(T.curtFB),l:'Curtidas no Facebook',ic:EI.fb,c:'blue',plus:1},
+];
+const TINT={coral:['var(--coral-tint)','var(--coral)'],blue:['var(--blue-tint)','var(--blue)'],violet:['var(--violet-tint)','var(--violet)'],amber:['var(--amber-tint)','var(--amber)'],green:['var(--green-tint)','var(--green)']};
+document.getElementById('eng').innerHTML=eng.map(e=>`<div class="item"><div class="ic" style="background:${TINT[e.c][0]}"><svg viewBox="0 0 24 24" stroke="${TINT[e.c][1]}" stroke-linecap="round" stroke-linejoin="round"><path d="${e.ic}"/></svg></div><div class="v tnum ${e.plus?'plus':''}">${e.v}</div><div class="l">${e.l}</div></div>`).join('');
+</script>
+</body>
+</html>
